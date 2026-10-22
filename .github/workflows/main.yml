@@ -2,7 +2,8 @@ name: Publish ErrorMap
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -23,19 +24,23 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - uses: actions/checkout@v7.0.1
+      - name: Download repository
+        uses: actions/checkout@v7.0.1
 
       - name: Check website
+        working-directory: ErrorMap_GitHub_FULL_V9
         run: |
           node tests/check.cjs
           node tests/portal_test.cjs
           node tests/cloud_test.cjs
 
-      - uses: actions/configure-pages@v6.0.0
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6.0.0
 
-      - uses: actions/upload-pages-artifact@v5.0.0
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v5.0.0
         with:
-          path: dist
+          path: ErrorMap_GitHub_FULL_V9/dist
 
       - name: Deploy website
         id: deployment
