@@ -1,0 +1,8 @@
+{
+  "name": "errormap-github-pages",
+  "private": true,
+  "scripts": {
+    "dev": "python3 scripts/preview.py",
+    "test": "node tests/check.cjs && node tests/portal_test.cjs && node tests/cloud_test.cjs"
+  }
+}
